@@ -518,13 +518,8 @@ const renderGame = () => {
   const currentCard = state.current
     ? `
       <article class="current-card ${state.gameOver ? 'is-paused' : ''}">
-        <p class="place-tag">A PLACER</p>
         <img id="dragImage" src="${state.current.src}" alt="Photo a placer" loading="eager" draggable="false" />
-        <div class="current-meta">
-          <p class="current-label">Place cette photo sur la timeline</p>
-          <p class="current-sub">${state.current.label}</p>
-          ${hintYear ? `<p class="hint-year">Indice: ${hintYear}</p>` : ''}
-        </div>
+        ${hintYear ? `<p class="hint-year">Indice: ${hintYear}</p>` : ''}
       </article>
     `
     : `
@@ -606,14 +601,14 @@ const renderGame = () => {
         <section class="current-area">
           ${currentCard}
           <div class="drag-hint">
-            <p>FAITES GLISSER DANS LA TIMELINE</p>
+            <p>Glisse la photo dans la timeline</p>
             <div class="hint-dots"><span></span><span></span><span></span></div>
           </div>
         </section>
 
         <section class="timeline-area">
           <div class="timeline-head">
-            <h2>NOTRE HISTOIRE</h2>
+            <h2>TIMELINE</h2>
             <p>${state.timeline.length} evenements</p>
           </div>
           <div class="timeline-track">${renderTimelineSequence()}</div>

@@ -263,27 +263,13 @@ p {
   box-shadow: var(--shadow);
   padding: 12px;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  gap: 10px;
+  gap: 8px;
   position: relative;
-}
-
-.place-tag {
-  justify-self: end;
-  background: #fff;
-  border: 1px solid #e8dfcf;
-  border-radius: 999px;
-  color: #d89d2e;
-  font-weight: 800;
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  padding: 7px 13px;
 }
 
 .current-card img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   min-height: 0;
   object-fit: cover;
   border-radius: 20px;
@@ -302,24 +288,9 @@ body.is-dragging-photo .current-card img {
   box-shadow: 0 14px 24px rgba(20, 20, 20, 0.16);
 }
 
-.current-meta {
-  padding: 0 6px 4px;
-}
-
-.current-label {
-  font-family: 'Nunito', sans-serif;
-  font-size: 26px;
-  line-height: 1.05;
-}
-
-.current-sub {
-  margin-top: 3px;
-  color: var(--ink-soft);
-  font-size: 14px;
-}
-
 .hint-year {
-  margin-top: 8px;
+  margin-top: 2px;
+  justify-self: start;
   display: inline-block;
   border-radius: 999px;
   padding: 5px 10px;
@@ -336,8 +307,9 @@ body.is-dragging-photo .current-card img {
 
 .drag-hint p {
   font-family: 'Nunito', sans-serif;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
   font-size: 14px;
+  text-transform: none;
 }
 
 .hint-dots {
@@ -844,24 +816,11 @@ body.is-dragging-photo .insert-plus:not(:disabled) {
     font-size: 18px;
   }
 
-  .current-label {
-    font-size: 18px;
-  }
-
-  .current-sub {
-    font-size: 12px;
-  }
-
   .current-card {
     border-width: 8px;
     border-radius: 24px;
     padding: 10px;
     gap: 8px;
-  }
-
-  .place-tag {
-    font-size: 11px;
-    padding: 5px 10px;
   }
 
   .timeline-head h2 {
