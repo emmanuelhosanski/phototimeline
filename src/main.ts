@@ -86,6 +86,9 @@ const allPhotos = effectiveManifest
   .filter((photo): photo is Photo => photo !== null)
   .sort((a, b) => a.date.getTime() - b.date.getTime());
 
+const findIntroCoverPhoto = () =>
+  allPhotos.find((photo) => photo.src.toLowerCase().includes('img_1390.jpeg')) ?? allPhotos[0];
+
 const formatDate = (date: Date) =>
   date.toLocaleDateString('fr-FR', {
     weekday: 'short',
@@ -487,7 +490,7 @@ const renderTimelineSequence = () => {
 };
 
 const renderIntro = () => {
-  const coverPhoto = allPhotos[0];
+  const coverPhoto = findIntroCoverPhoto();
   app.innerHTML = `
     <main class="intro-shell">
       <section class="intro-card">
