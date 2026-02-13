@@ -39,6 +39,7 @@ type GameState = {
     rewind: boolean;
     hint: boolean;
   };
+  viewerPhotoId: string | null;
 };
 
 type DragState = {
@@ -174,6 +175,7 @@ const initialState = (): GameState => {
       rewind: true,
       hint: true,
     },
+    viewerPhotoId: null,
   };
 };
 
@@ -331,6 +333,16 @@ const onShareScore = async () => {
   }
 };
 
+const openViewer = (photoId: string) => {
+  state.viewerPhotoId = photoId;
+  render();
+};
+
+const closeViewer = () => {
+  state.viewerPhotoId = null;
+  render();
+};
+
 const startGame = () => {
   state.started = true;
   render();
@@ -459,7 +471,9 @@ const renderTimelineSequence = () => {
     if (photo) {
       parts.push(`
         <article class="timeline-item">
-          <img src="${photo.src}" alt="Souvenir place" loading="lazy" />
+          <button class="timeline-photo-btn" data-photo-id="${photo.id}" aria-label="Voir la photo en grand">
+            <img src="${photo.src}" alt="Souvenir place" loading="lazy" />
+          </button>
           <div class="timeline-date">
             <p>${formatDayMonth(photo.date)}</p>
             <strong>${formatYear(photo.date)}</strong>
@@ -480,19 +494,14 @@ const renderIntro = () => {
         <h1>Timeline de<br />${COUPLE_NAMES}</h1>
         <div class="intro-divider"></div>
         <div class="intro-visual-wrap">
-          <div class="intro-float float-heart">💛</div>
-          <div class="intro-float float-star">✨</div>
+          <div class="intro-orbit orbit-heart"><div class="intro-float">💛</div></div>
+          <div class="intro-orbit orbit-star"><div class="intro-float">✨</div></div>
           <div class="intro-visual">
             <img src="${coverPhoto.src}" alt="Nounours" loading="eager" />
           </div>
         </div>
         <p class="intro-subtitle">REVIVEZ VOS PLUS BEAUX MOMENTS</p>
         <button id="startBtn" class="start-btn">Jouer</button>
-        <div class="intro-footer-actions">
-          <span>Reglages</span>
-          <span>Album</span>
-          <span>Partager</span>
-        </div>
       </section>
     </main>
   `;
@@ -554,6 +563,23 @@ const renderGame = () => {
     `
     : '';
 
+  const viewerPhoto = state.viewerPhotoId
+    ? state.timeline.find((photo) => photo.id === state.viewerPhotoId) ?? null
+    : null;
+
+  const viewerModal = viewerPhoto
+    ? `
+      <section class="viewer-modal" id="viewerModal">
+        <button class="viewer-backdrop" id="viewerBackdrop" aria-label="Fermer"></button>
+        <div class="viewer-card">
+          <img src="${viewerPhoto.src}" alt="Souvenir en grand format" loading="eager" />
+          <p>${formatDate(viewerPhoto.date)}</p>
+          <button class="viewer-close" id="viewerClose">Fermer</button>
+        </div>
+      </section>
+    `
+    : '';
+
   app.innerHTML = `
     <main class="game-shell">
       <header class="top-bar">
@@ -595,6 +621,7 @@ const renderGame = () => {
       </section>
 
       ${gameOverPanel}
+      ${viewerModal}
     </main>
   `;
 
@@ -603,6 +630,16 @@ const renderGame = () => {
     button.addEventListener('click', () => {
       const insertIndex = Number(button.dataset.insertIndex);
       onInsert(insertIndex);
+    });
+  });
+
+  const timelinePhotoButtons = app.querySelectorAll<HTMLButtonElement>('.timeline-photo-btn');
+  timelinePhotoButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const photoId = button.dataset.photoId;
+      if (photoId) {
+        openViewer(photoId);
+      }
     });
   });
 
@@ -646,6 +683,16 @@ const renderGame = () => {
     shareBtn.addEventListener('click', () => {
       void onShareScore();
     });
+  }
+
+  const viewerBackdrop = app.querySelector<HTMLButtonElement>('#viewerBackdrop');
+  if (viewerBackdrop) {
+    viewerBackdrop.addEventListener('click', closeViewer);
+  }
+
+  const viewerClose = app.querySelector<HTMLButtonElement>('#viewerClose');
+  if (viewerClose) {
+    viewerClose.addEventListener('click', closeViewer);
   }
 };
 
