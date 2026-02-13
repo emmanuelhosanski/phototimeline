@@ -1,0 +1,19 @@
+{
+  "name": "photosphere",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "photos:manifest": "node scripts/generate-photo-manifest.mjs"
+  },
+  "dependencies": {
+    "exifr": "^7.1.3",
+    "three": "^0.161.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.8"
+  }
+}
