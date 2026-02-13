@@ -261,7 +261,7 @@ const onInsert = (insertIndex: number) => {
   if (!isCorrect) {
     finishGame(
       'Oups !',
-      "Ce n'etait pas tout a fait le bon moment pour ce souvenir...",
+      '',
       formatDate(chosen.date),
     );
     render();
@@ -503,7 +503,6 @@ const renderIntro = () => {
             <img src="${coverPhoto.src}" alt="Nounours" loading="eager" />
           </div>
         </div>
-        <p class="intro-subtitle">REVIVEZ VOS PLUS BEAUX MOMENTS</p>
         <button id="startBtn" class="start-btn">Jouer</button>
       </section>
     </main>
@@ -539,7 +538,7 @@ const renderGame = () => {
         <div class="game-over-card">
           <div class="gameover-icon">😵</div>
           <p class="panel-title">${state.gameOverTitle}</p>
-          <p class="panel-message">${state.gameOverMessage}</p>
+          ${state.gameOverMessage ? `<p class="panel-message">${state.gameOverMessage}</p>` : ''}
           ${
             state.gameOverDateLabel
               ? `<div class="gameover-date"><span>C'ETAIT LE</span><strong>${state.gameOverDateLabel}</strong></div>`
