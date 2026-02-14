@@ -497,8 +497,8 @@ const renderIntro = () => {
         <h1>Timeline de<br />${COUPLE_NAMES}</h1>
         <div class="intro-divider"></div>
         <div class="intro-visual-wrap">
-          <div class="intro-orbit orbit-heart"><div class="intro-float">💛</div></div>
-          <div class="intro-orbit orbit-star"><div class="intro-float">✨</div></div>
+          <div class="intro-orbit orbit-heart"><div class="intro-float">🧸</div></div>
+          <div class="intro-orbit orbit-star"><div class="intro-float">🐻</div></div>
           <div class="intro-visual">
             <img src="${coverPhoto.src}" alt="Nounours" loading="eager" />
           </div>
